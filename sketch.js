@@ -17,7 +17,7 @@ function setup(){
     edges = createEdgeSprites();
   
     bricks = new Group();
-   // text({playerName}, 200,200);
+    text({playerName}, 200,200);
   
     createBrickRow(65, "red");
     createBrickRow(65+29, "orange");
