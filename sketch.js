@@ -18,7 +18,7 @@ function setup(){
   
     bricks = new Group();
     playerName = getUrlVars()["playerName"];
-    text({playerName}, 200,200);
+    
   
     createBrickRow(65, "red");
     createBrickRow(65+29, "orange");
@@ -32,6 +32,7 @@ function draw(){
   textSize(20);
   text("Score: "+score,40,25);
   text("Lives: "+lives, 40, 45);
+  text(playerName, 240,45);
   
   if(gamestate == "serve"){
     text("Click to serve the ball.", 120,250);
@@ -130,7 +131,8 @@ function gameplay(){
 function getUrlVars() {
   var vars = {};
   var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-      vars[key] = value;
+      vars[key] = decodeURI(value);
   });
+  console.log(vars)
   return vars;
 }
