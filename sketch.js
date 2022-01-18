@@ -17,6 +17,7 @@ function setup(){
     edges = createEdgeSprites();
   
     bricks = new Group();
+    playerName = getUrlVars()["playerName"];
     text({playerName}, 200,200);
   
     createBrickRow(65, "red");
@@ -124,4 +125,12 @@ function gameplay(){
   if(ball.isTouching(edges[3])) {
     lifeover();
   }
+}
+
+function getUrlVars() {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+      vars[key] = value;
+  });
+  return vars;
 }
