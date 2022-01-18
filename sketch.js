@@ -2,12 +2,15 @@ var ball, paddle, edges, bricks;
 var score = 0;
 var lives = 3;
 var gamestate = "serve";
-var playerName = ""
+var playerName = "";
+var database;
 
 
 
 function setup(){
     createCanvas(500,500);
+
+    database = firebase.database();
     ball = createSprite(200,200,10,10);
     ball.shapeColor = "red"
   
@@ -122,6 +125,7 @@ function gameplay(){
     ball.velocityX = 0;
     ball.velocityY = 0;
     text("Well Done!!",150,200);
+    updateHighScoreInDB();
   }
   if(ball.isTouching(edges[3])) {
     lifeover();
@@ -135,4 +139,18 @@ function getUrlVars() {
   });
   console.log(vars)
   return vars;
+}
+
+function updateHighScoreInDB() {
+  var highscore = 0;
+  database.ref("score1").on("value", (data) => {
+    highscore = int(data.val());
+  });
+  console.log("high score" + highscore)
+  if (highscore < score) {
+    database.ref("/").update({
+      score1: score,
+      name1: playerName
+    })
+  }
 }
